@@ -229,7 +229,7 @@ func SetupGenesisBlockWithOverride(db ethdb.Database, genesis *Genesis, override
 	// if we just continued here.
 	// The full node of two Core testnets may run without genesis file after been inited.
 	if genesis == nil && stored != params.MainnetGenesisHash &&
-		stored != params.BuffaloGenesisHash && stored != params.CoreGenesisHash {
+		stored != params.AtoshiTestGenesisHash && stored != params.AtoshiGenesisHash {
 		return storedcfg, stored, nil
 	}
 	// Check config compatibility and write the config. Compatibility errors
@@ -252,10 +252,10 @@ func (g *Genesis) configOrDefault(ghash common.Hash) *params.ChainConfig {
 		return g.Config
 	case ghash == params.MainnetGenesisHash:
 		return params.MainnetChainConfig
-	case ghash == params.CoreGenesisHash:
-		return params.CoreChainConfig
-	case ghash == params.BuffaloGenesisHash:
-		return params.BuffaloChainConfig
+	case ghash == params.AtoshiGenesisHash:
+		return params.AtoshiChainConfig
+	case ghash == params.AtoshiTestGenesisHash:
+		return params.AtoshiTestChainConfig
 	default:
 		return params.AllEthashProtocolChanges
 	}

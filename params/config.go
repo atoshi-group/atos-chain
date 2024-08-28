@@ -30,8 +30,8 @@ import (
 var (
 	MainnetGenesisHash = common.HexToHash("0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3")
 
-	CoreGenesisHash    = common.HexToHash("0xf7fc87f11e61508a5828cd1508060ed1714c8d32a92744ae10acb43c953357ad")
-	BuffaloGenesisHash = common.HexToHash("0xd90508c51efd64e75363cdf51114d9f2a90a79e6cd0f78f3c3038b47695c034a")
+	AtoshiGenesisHash     = common.HexToHash("0xe36d93abac73885e8695e740d14b2c25d80ea22d21f493805b262282fca68891")
+	AtoshiTestGenesisHash = common.HexToHash("0xe36d93abac73885e8695e740d14b2c25d80ea22d21f493805b262282fca68892")
 )
 
 // TrustedCheckpoints associates each known checkpoint with the genesis hash of
@@ -65,7 +65,8 @@ var (
 		BerlinBlock:         big.NewInt(12_244_000),
 		LondonBlock:         big.NewInt(12_965_000),
 		ArrowGlacierBlock:   big.NewInt(13_773_000),
-		Ethash:              new(EthashConfig),
+
+		Ethash: new(EthashConfig),
 	}
 
 	// MainnetTrustedCheckpoint contains the light client trusted checkpoint for the main network.
@@ -284,6 +285,48 @@ var (
 		},
 	}
 
+	AtoshiChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(1167),
+		HomesteadBlock:      big.NewInt(0),
+		EIP150Block:         big.NewInt(0),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		HashPowerBlock:      big.NewInt(0),
+		ZeusBlock:           big.NewInt(8_020_000),
+		BeijingBlock:        big.NewInt(50),
+		Satoshi: &SatoshiConfig{
+			Period: 3,
+			Epoch:  200,
+			Round:  86400,
+		},
+	}
+
+	AtoshiTestChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(1168),
+		HomesteadBlock:      big.NewInt(0),
+		EIP150Block:         big.NewInt(0),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		HashPowerBlock:      big.NewInt(4_545_256),
+		ZeusBlock:           big.NewInt(12_666_000),
+		BeijingBlock:        big.NewInt(100),
+		Satoshi: &SatoshiConfig{
+			Period: 3,
+			Epoch:  200,
+			Round:  86400,
+		},
+	}
+
 	RialtoChainConfig = &ChainConfig{
 		ChainID:             big.NewInt(1417),
 		HomesteadBlock:      big.NewInt(0),
@@ -307,16 +350,16 @@ var (
 	// This configuration is intentionally not using keyed fields to force anyone
 	// adding flags to the config to also have to set these fields.
 
-	AllEthashProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, nil, nil, nil, new(EthashConfig), nil, nil}
+	AllEthashProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, nil, nil, nil, nil, new(EthashConfig), nil, nil}
 
 	// AllCliqueProtocolChanges contains every protocol change (EIPs) introduced
 	// and accepted by the Ethereum core developers into the Clique consensus.
 	//
 	// This configuration is intentionally not using keyed fields to force anyone
 	// adding flags to the config to also have to set these fields.
-	AllCliqueProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, nil, big.NewInt(0), nil, nil, nil, nil, nil, nil, &CliqueConfig{Period: 0, Epoch: 30000}, nil}
+	AllCliqueProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, nil, big.NewInt(0), nil, nil, nil, nil, nil, nil, nil, &CliqueConfig{Period: 0, Epoch: 30000}, nil}
 
-	TestChainConfig = &ChainConfig{big.NewInt(1), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, nil, nil, nil, new(EthashConfig), nil, nil}
+	TestChainConfig = &ChainConfig{big.NewInt(1), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, nil, nil, nil, nil, new(EthashConfig), nil, nil}
 	TestRules       = TestChainConfig.Rules(new(big.Int), false)
 )
 
@@ -406,6 +449,7 @@ type ChainConfig struct {
 
 	HashPowerBlock *big.Int `json:"hashPowerBlock,omitempty"`
 	ZeusBlock      *big.Int `json:"zeusBlock,omitempty"`
+	BeijingBlock   *big.Int `json:"BeijingBlock,omitempty"`
 
 	// Various consensus engines
 	Ethash  *EthashConfig  `json:"ethash,omitempty" toml:",omitempty"`
@@ -457,7 +501,7 @@ func (c *ChainConfig) String() string {
 	default:
 		engine = "unknown"
 	}
-	return fmt.Sprintf("{ChainID: %v Homestead: %v DAO: %v DAOSupport: %v EIP150: %v EIP155: %v EIP158: %v Byzantium: %v Constantinople: %v Petersburg: %v Istanbul: %v, Muir Glacier: %v, Berlin: %v, YOLO v3: %v, London: %v, HashPower: %v, Zeus: %v, Engine: %v}",
+	return fmt.Sprintf("{ChainID: %v Homestead: %v DAO: %v DAOSupport: %v EIP150: %v EIP155: %v EIP158: %v Byzantium: %v Constantinople: %v Petersburg: %v Istanbul: %v, Muir Glacier: %v, Berlin: %v, YOLO v3: %v, London: %v, HashPower: %v, Zeus: %v, Beijing: %v,Engine: %v}",
 		c.ChainID,
 		c.HomesteadBlock,
 		c.DAOForkBlock,
@@ -475,6 +519,7 @@ func (c *ChainConfig) String() string {
 		c.LondonBlock,
 		c.HashPowerBlock,
 		c.ZeusBlock,
+		c.BeijingBlock,
 		engine,
 	)
 }
@@ -568,6 +613,14 @@ func (c *ChainConfig) IsZeus(num *big.Int) bool {
 
 func (c *ChainConfig) IsOnZeus(num *big.Int) bool {
 	return configNumEqual(c.ZeusBlock, num)
+}
+
+func (c *ChainConfig) IsBeijing(num *big.Int) bool {
+	return isForked(c.BeijingBlock, num)
+}
+
+func (c *ChainConfig) IsOnBeijing(num *big.Int) bool {
+	return configNumEqual(c.BeijingBlock, num)
 }
 
 // CheckCompatible checks whether scheduled fork transitions have been imported
@@ -683,6 +736,10 @@ func (c *ChainConfig) checkCompatible(newcfg *ChainConfig, head *big.Int) *Confi
 	if isForkIncompatible(c.ZeusBlock, newcfg.ZeusBlock, head) {
 		return newCompatError("zeus fork block", c.ZeusBlock, newcfg.ZeusBlock)
 	}
+	if isForkIncompatible(c.BeijingBlock, newcfg.BeijingBlock, head) {
+		return newCompatError("Beijing fork block", c.BeijingBlock, newcfg.BeijingBlock)
+	}
+
 	return nil
 }
 
