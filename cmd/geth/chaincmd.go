@@ -233,6 +233,7 @@ func initGenesis(ctx *cli.Context) error {
 		}
 		chaindb.Close()
 		log.Info("Successfully wrote genesis state", "database", name, "hash", hash)
+		fmt.Println("Successfully wrote:", hash)
 	}
 	return nil
 }
